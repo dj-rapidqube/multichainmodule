@@ -1,0 +1,12 @@
+{
+"config":
+    {
+    "port" : "6728",
+    "host" : "127.0.0.1",
+    "user" : "multichainrpc",
+    "pass" : "8geie8jpKLqu13SnwpYkuH9p712GfBVifN5vhwsMzmZi"
+    },
+"stream":{
+    "streamName":"MedicalInfo"
+    }
+}
