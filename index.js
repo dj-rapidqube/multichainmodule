@@ -87,10 +87,9 @@ function addData(params) {
   
       multichain.listStreamItems({
         stream: stream.streamName,
-        "key": "*",
         "verbose": false,
-        "count":params.lastCount,
-        "start": params.startCount
+         "count":lastCount,
+         "start": startCount
       }, (err, res) => {
         var length = res.length;
   
@@ -100,6 +99,7 @@ function addData(params) {
               response: "Data is Not available into Blockchain!"
             });
           } else {
+              console.log(res)
               return resolve({
               "response":res
             })
@@ -110,7 +110,6 @@ function addData(params) {
       })
     })
   }
-
 // readKeys ::- retrieves All keys present in Blockchain.
 function readKeys(params) {
 
@@ -157,7 +156,7 @@ function readData(params) {
         var records = [];
         var response;
         multichain.listStreamKeyItems({
-            stream: stream,
+            stream: stream.streamName,
             "key": key,
             "verbose": false,
             "count":params.lastCount,
@@ -174,6 +173,7 @@ function readData(params) {
 
                     var string = '';
                     var data = res[length - 1].data;
+                    console.log(data)
                     string = Buffer.from(data, 'hex').toString();
 
                     records.push({
@@ -185,6 +185,7 @@ function readData(params) {
                         "txid": res[0].txid,
 
                     });
+                    console.log(records)
                     return resolve({
                         response: records
                     });
@@ -197,7 +198,6 @@ function readData(params) {
     })
 
 }
-
 // deleteData: will update the flag for given key and provided value that record has been deleted.
 function deleteData(params) {
     return new Promise((resolve) => {
