@@ -48,20 +48,22 @@ console.log(stream)
 // ====================================== Generic Methods =============================================
 
 // addData : will addData for given Key and Stream
-function addData(key,value) {
+function addData(params) {
+    console.log("val",params.value)
     return new Promise((resolve) => {
         var response;
-        var key = key;
+        var key = params.key;
         var hexstring;
-        var value = JSON.stringify(value);
+        var value = JSON.stringify(params.value);
+        console.log(value)
         let bufStr = Buffer.from(value, 'utf8');
         hexstring = bufStr.toString('hex')
  
         multichain.publish({
-            stream: stream,
+            stream: stream.streamName,
             key: key,
             data: hexstring
-        }, (err, res,key) => {
+        }, (err, res,key,data) => {
             if (err == null) {
                 return resolve({
                     response: res,
@@ -70,14 +72,14 @@ function addData(key,value) {
                     message:"data is stored into Blockchain"
                 });
             } else {
-                return reject(err)            
+                console.log(err)            
             }
         })
     })
  }
 
 // readAllData : will retrieve All records for given stream.
-  function readAllData(lastCount , startCount) {
+  function readAllData(params) {
     return new Promise((resolve) => {
       var response;
   
@@ -87,8 +89,8 @@ function addData(key,value) {
         stream: stream.streamName,
         "key": "*",
         "verbose": false,
-        "count":lastCount,
-        "start": startCount
+        "count":params.lastCount,
+        "start": params.startCount
       }, (err, res) => {
         var length = res.length;
   
@@ -110,7 +112,7 @@ function addData(key,value) {
   }
 
 // readKeys ::- retrieves All keys present in Blockchain.
-function readKeys(lastCount , startCount) {
+function readKeys(params) {
 
     return new Promise((resolve) => {
         var keyStore = [];
@@ -118,8 +120,8 @@ function readKeys(lastCount , startCount) {
         multichain.listStreamKeys({
             stream: stream.streamName,
             "verbose" : false,
-            "count":lastCount,
-            "start":startCount
+            "count":params.lastCount,
+            "start":params.startCount
         }, (err, res) => {
            console.log(res)
             if (err == null) {
@@ -138,7 +140,8 @@ function readKeys(lastCount , startCount) {
                     response: keyStore
                 });
             } else {
-                return reject(err)                    
+                console.log
+                (err)                  
             }
         })
 
@@ -147,18 +150,18 @@ function readKeys(lastCount , startCount) {
 }
 
 //  readData::- retrieve latest Data from Blockchain based On EHR-ID
-function readData(key,lastCount,startCount) {
+function readData(params) {
 
     return new Promise((resolve) => {
-        var key = key;
+        var key = params.key;
         var records = [];
         var response;
         multichain.listStreamKeyItems({
             stream: stream,
             "key": key,
             "verbose": false,
-            "count":lastCount,
-            "start": startCount
+            "count":params.lastCount,
+            "start": params.startCount
         }, (err, res) => {
             var length = res.length;
 
@@ -196,12 +199,12 @@ function readData(key,lastCount,startCount) {
 }
 
 // deleteData: will update the flag for given key and provided value that record has been deleted.
-function deleteData() {
+function deleteData(params) {
     return new Promise((resolve) => {
         var response;
-        var key = "2";
+        var key = params.key;
         var hexstring;
-        var value = "Given record is deleted";
+        var value = "For Given key record is deleted";
         let bufStr = Buffer.from(value, 'utf8');
         hexstring = bufStr.toString('hex')
         console.log(hexstring)
