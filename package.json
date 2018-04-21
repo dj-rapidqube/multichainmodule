@@ -3,5 +3,29 @@
   "lockfileVersion": 1,
   "dependencies": {
     "multichain-node": "^2.1.6-version1.0.2"
-  }
+  },
+  "name": "multichainstream",
+  "description": "This node module is completly works for streams in multichain module",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dj-rapidqube/multichainmodule.git"
+  },
+  "keywords": [
+    "addData",
+    "readData",
+    "readKey",
+    "deleteData"
+  ],
+  "author": "dhananjay <dhananjay.patil@rapidqube.com> (https://github.com/dj-rapidqube/multichainmodule)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dj-rapidqube/multichainmodule/issues"
+  },
+  "homepage": "https://github.com/dj-rapidqube/multichainmodule#readme"
 }

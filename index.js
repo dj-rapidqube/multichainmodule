@@ -28,6 +28,7 @@ var content = {
     "streamName":""
     }
 }
+
 // condition will get execute if config folder is not present in folder
 if (!fs.existsSync(dir)){
     fs.mkdirSync(dir);
@@ -69,7 +70,7 @@ function addData(key,value) {
                     message:"data is stored into Blockchain"
                 });
             } else {
-                reject(err)
+                return reject(err)            
             }
         })
     })
@@ -102,7 +103,7 @@ function addData(key,value) {
             })
           }
         } else {
-        reject(err)  
+            return reject(err)            
         }
       })
     })
@@ -137,7 +138,7 @@ function readKeys(lastCount , startCount) {
                     response: keyStore
                 });
             } else {
-                reject(err)            
+                return reject(err)                    
             }
         })
 
@@ -186,7 +187,7 @@ function readData(key,lastCount,startCount) {
                     });
                 }
             } else {
-                    reject(err)            
+                    return reject(err)            
                 }
         })
 
@@ -216,7 +217,7 @@ function deleteData() {
                     message:"data is Archieved from Blockchain"
                 });
             } else {
-                console.log(err)
+                return reject(err)            
             }
         })
     })
